@@ -1,0 +1,33 @@
+// by UnderGamer
+function createMouseEvent(eventType, touchEvent) {
+    const touch = touchEvent.changedTouches[0];
+
+    const mouseEvent = new MouseEvent(eventType, {
+        bubbles: true,
+        cancelable: true,
+        view: window,
+        detail: touchEvent.detail,
+        screenX: touch.screenX,
+        screenY: touch.screenY,
+        clientX: touch.clientX,
+        clientY: touch.clientY,
+        ctrlKey: touchEvent.ctrlKey,
+        shiftKey: touchEvent.shiftKey,
+        altKey: touchEvent.altKey,
+        metaKey: touchEvent.metaKey,
+        button: 0,
+        buttons: 1
+    });
+
+    touchEvent.target.dispatchEvent(mouseEvent);
+}
+
+document.addEventListener("touchstart", (e) => {
+    createMouseEvent("mousedown", e);
+});
+document.addEventListener("touchmove", (e) => {
+    createMouseEvent("mousemove", e);
+});
+document.addEventListener("touchend", (e) => {
+    createMouseEvent("mouseup", e);
+});
